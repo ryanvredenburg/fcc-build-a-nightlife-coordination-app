@@ -27,7 +27,8 @@ app.use('/common', express.static(process.cwd() + '/app/common'))
 app.use(session({
   secret: 'secretClementine',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: { maxAge: 60000 }
 }))
 
 app.use(passport.initialize())

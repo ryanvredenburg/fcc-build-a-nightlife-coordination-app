@@ -17,15 +17,29 @@ module.exports = function (app, passport) {
 
   app.route('/')
 		.get(function (req, res) {
-  res.render('index', {businesses: null})
+  var location = req.session.location || null
+  if (location) {
+    getBars(location, function (error, data) {
+      if (error) throw error
+      res.render('index', {location: location, businesses: data})
+    })
+  } else {
+    res.render('index', {location: location, businesses: null})
+  }
 })
     .post(function (req, res) {
       getBars(req.body.location, function (error, data) {
         if (error) throw error
-
-        res.render('index', {businesses: data})
+        req.session.location = req.body.location
+        res.render('index', {location: req.body.location, businesses: data})
       })
     })
+  app.route('/rsvp/:barId')
+		.get(isLoggedIn, function (req, res) {
+  var barId = req.params.barId
+
+  res.render('index', {location: null, businesses: null})
+})
 
   app.route('/login')
 		.get(function (req, res) {
