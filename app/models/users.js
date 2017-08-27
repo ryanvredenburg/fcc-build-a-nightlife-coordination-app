@@ -12,7 +12,10 @@ var User = new Schema({
   },
   nbrClicks: {
     clicks: Number
-  }
+  },
+  rsvps: [
+    {yelpId: String}
+  ]
 }, { collection: 'fccNightlifeUser' })
 
 module.exports = mongoose.model('User', User)
