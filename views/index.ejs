@@ -1,0 +1,22 @@
+<% include header.ejs %>
+
+<div class="container">
+  <p>
+    Tell random people on the internet what bar you'll be at. Sounds safe...
+  </p>
+</div>
+<div class="col-lg-6">
+  <form action="/" method="post">
+    <div class="input-group">
+      <input id="location" name="location" type="text" class="form-control" placeholder="Your Location....">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="submit">Go!</button>
+      </span>
+    </div>
+  </form>
+</div>
+  
+
+<% if (businesses){ %>
+  <% include searchResults.ejs %>
+<% } %>

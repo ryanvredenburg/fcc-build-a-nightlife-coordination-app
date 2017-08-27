@@ -12,6 +12,11 @@ require('./app/config/passport')(passport)
 
 app.set('view engine', 'ejs')
 
+var bodyParser = require('body-parser')
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+
 mongoose.connect(process.env.MONGO_URI)
 mongoose.Promise = global.Promise
 

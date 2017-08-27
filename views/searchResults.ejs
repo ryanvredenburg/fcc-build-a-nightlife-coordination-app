@@ -1,0 +1,23 @@
+<% include header.ejs %>
+<div class="container">
+    <section class="col-xs-12 col-sm-6 col-md-12">
+		  <% for( var i = 0; i < businesses.length; i++){ %>
+        <article class="search-result row">
+          <div class="col-xs-12 col-sm-12 col-md-4">
+            <a href="<%= businesses[i].url %>" title="<%= businesses[i].name %>" class="thumbnail"><img src="<%= businesses[i].imgUrl %>" alt="<%= businesses[i].name %>" /></a>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-4">
+            <ul class="meta-search">
+              <li><span>Name: <%= businesses[i].name %></span></li>
+              <li><span>Rating: <%= businesses[i].rating %></span></li>
+              <li><span>Price: <%= businesses[i].price %></span></li>
+            </ul>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-4 excerpet">
+            <button type="button" id="<%= businesses[i].yelpId %>" class="btn btn-default">Default</button>
+          </div>
+          <span class="clearfix borda"></span>
+      </article>
+    <% } %>                        	
+	</section>
+</div>

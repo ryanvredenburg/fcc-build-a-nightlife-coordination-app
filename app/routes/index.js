@@ -3,7 +3,7 @@
 var path = process.cwd()
 var getBars = require(path + '/app/controllers/yelpController.js')
 var ClickHandler = require(path + '/app/controllers/clickHandler.server.js')
- 
+
 module.exports = function (app, passport) {
   function isLoggedIn (req, res, next) {
     if (req.isAuthenticated()) {
@@ -14,30 +14,18 @@ module.exports = function (app, passport) {
   }
 
   var clickHandler = new ClickHandler()
-  app.route('/test')
-		.get( function (req, res) {
-      res.render('test')
-  })
-  
-app.route('/search/')
-  .post( function (req, res) {
-    getBars(req.body.location, function(error, data){
-      if (error) throw error;
-      res.render('index', {businesses:data})                                       
-    })
-  })
-  //DELETE: yelp API verification
-  .get( function (req, res) {
-    getBars('Chicago', function(error, data){
-      if (error) throw error;
-      res.send(data)                                       
-    })
-  })  
-  
+
   app.route('/')
-		.get(isLoggedIn, function (req, res) {
-  res.sendFile(path + '/public/index.html')
+		.get(function (req, res) {
+  res.render('index', {businesses: null})
 })
+    .post(function (req, res) {
+      getBars(req.body.location, function (error, data) {
+        if (error) throw error
+
+        res.render('index', {businesses: data})
+      })
+    })
 
   app.route('/login')
 		.get(function (req, res) {
