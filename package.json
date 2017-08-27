@@ -31,6 +31,8 @@
     "passport": "^0.3.0",
     "passport-github": "^1.0.0",
     "standard": "^10.0.3",
-    "ejs": "^2.5.7"
+    "ejs": "^2.5.7",
+    "axios": "^0.16.2",
+    "yelp-api-v3": "^1.5.0"
   }
 }
