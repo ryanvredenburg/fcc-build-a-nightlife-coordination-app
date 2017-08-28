@@ -26,7 +26,7 @@ app.use('/common', express.static(process.cwd() + '/app/common'))
 
 app.use(session({
   secret: 'secretClementine',
-  resave: false,
+  resave: true,
   saveUninitialized: true,
   cookie: { maxAge: 60000 }
 }))

@@ -12,7 +12,7 @@ function getBars (location, callback) {
     .then(function (data) {
       data = JSON.parse(data)
       var barResults = []
-      for (var i = 0; i < data.businesses.length; i++) {
+      for (let i = 0; i < data.businesses.length; i++) {
         var name = data.businesses[i].name || null
         var rating = data.businesses[i].rating || null
         var price = data.businesses[i].price || null

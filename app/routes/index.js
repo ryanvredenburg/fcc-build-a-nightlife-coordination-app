@@ -2,7 +2,7 @@
 
 var path = process.cwd()
 var getBars = require(path + '/app/controllers/yelpController.js')
-var rsvp = require(path + '/app/controllers/rsvp.js')
+var businessController = require(path + '/app/controllers/businessController.js')
 var ClickHandler = require(path + '/app/controllers/clickHandler.server.js')
 
 module.exports = function (app, passport) {
@@ -22,7 +22,10 @@ module.exports = function (app, passport) {
   if (location) {
     getBars(location, function (error, data) {
       if (error) return res.end(error.toString())
-      res.render('index', {location: location, businesses: data})
+      var userId = req.user ? req.user.id : null
+      businessController.processBusinesses(data, userId, function (error, pData) {
+        res.render('index', {location: req.body.location, businesses: pData})
+      })
     })
   } else {
     res.render('index', {location: location, businesses: null})
@@ -31,14 +34,26 @@ module.exports = function (app, passport) {
     .post(function (req, res) {
       getBars(req.body.location, function (error, data) {
         if (error) return res.end(error.toString())
-        req.session.location = req.body.location
-        res.render('index', {location: req.body.location, businesses: data})
+        var userId = req.user ? req.user.id : null
+        businessController.processBusinesses(data, userId, function (error, pData) {
+          req.session.location = req.body.location
+          res.render('index', {location: req.body.location, businesses: pData})
+        })
       })
     })
   app.route('/rsvp/:barId')
 		.get(isLoggedIn, function (req, res) {
   var barId = req.params.barId
-  rsvp(req.user.id, barId, function (error) {
+  businessController.rsvp(req.user.id, barId, function (error) {
+    if (error) return res.end(error.toString())
+    res.redirect('/')
+  })
+})
+
+  app.route('/cancelrsvp/:barId')
+		.get(isLoggedIn, function (req, res) {
+  var barId = req.params.barId
+  businessController.cancelrsvp(req.user.id, barId, function (error) {
     if (error) return res.end(error.toString())
     res.redirect('/')
   })

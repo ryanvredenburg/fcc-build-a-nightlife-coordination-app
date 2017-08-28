@@ -11,10 +11,15 @@
               <li><span>Name: <%= businesses[i].name %></span></li>
               <li><span>Rating: <%= businesses[i].rating %></span></li>
               <li><span>Price: <%= businesses[i].price %></span></li>
+              <li><span>RSVPs: <%= businesses[i].rsvpCount %></span></li>
             </ul>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-4 excerpet">
-            <a href="/rsvp/<%= businesses[i].yelpId %>" roll="button" class="btn btn-default">RSVP</a>
+            <% if (businesses[i].isRSVPed){ %>
+              <a href="/cancelrsvp/<%= businesses[i].yelpId %>" roll="button" class="btn btn-danger">Cancel-RSVP</a>
+            <% } else { %>
+              <a href="/rsvp/<%= businesses[i].yelpId %>" roll="button" class="btn btn-default">RSVP</a>
+            <% } %>
           </div>
           <span class="clearfix borda"></span>
       </article>
